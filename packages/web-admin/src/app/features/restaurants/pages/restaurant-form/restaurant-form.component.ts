@@ -1,4 +1,5 @@
-import { Component, inject, OnInit, signal } from '@angular/core'
+import { Component, inject, DestroyRef, OnInit, signal } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormsModule } from '@angular/forms'
 import { ActivatedRoute, Router, RouterLink } from '@angular/router'
 import { LucideAngularModule } from 'lucide-angular'
@@ -19,6 +20,7 @@ export class RestaurantFormComponent implements OnInit {
   private readonly service = inject(RestaurantService)
   private readonly route = inject(ActivatedRoute)
   private readonly router = inject(Router)
+  private readonly destroyRef = inject(DestroyRef)
 
   isEditing = false
   restaurantId: string | null = null
@@ -40,12 +42,16 @@ export class RestaurantFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id')
-    if (id) {
-      this.isEditing = true
-      this.restaurantId = id
-      this.loadRestaurant(id)
-    }
+    this.route.paramMap
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(params => {
+        const id = params.get('id')
+        this.isEditing = !!id
+        this.restaurantId = id
+        if (id) {
+          this.loadRestaurant(id)
+        }
+      })
   }
 
   private async loadRestaurant(id: string): Promise<void> {

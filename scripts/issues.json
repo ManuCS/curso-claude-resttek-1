@@ -16,7 +16,15 @@
     "title": "Página en blanco al entrar en la url de platos",
     "type": "bug",
     "projects": ["web-admin"],
-    "body": "Cuando entramos directamente en esta ruta http://localhost:4200/restaurants/rest-2/dishes o cualquiera similar se queda la página en blanco."
+    "body": "Cuando entramos directamente en esta ruta http://localhost:4200/restaurants/rest-2/dishes o cualquiera similar se queda la página en blanco.",
+    "solved": true
+  },
+  {
+    "title": "No cargan los datos al cambiar de restaurante en otras secciones",
+    "type": "bug",
+    "projects": ["web-admin"],
+    "body": "El mismo problema de \"No cargan los datos\" también ocurre en otras secciones ligadas al restaurante: si estamos en el dashboard, en empleados o en la configuración de un restaurante y cambiamos a otro restaurante, se siguen mostrando los datos del restaurante anterior en vez de recargarse.",
+    "solved": true
   },
   {
     "title": "Seed no borra datos previos",
