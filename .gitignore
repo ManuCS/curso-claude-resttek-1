@@ -26,6 +26,9 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Claude Code worktrees
+.claude/worktrees/
+
 # Coverage
 coverage/
 node_modules
